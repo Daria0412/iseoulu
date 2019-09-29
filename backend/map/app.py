@@ -39,23 +39,5 @@ def show_gu(place):
     return render_template('map.html', geocode=api.return_gu(place))
 
 
-@app.route('/get', methods=['GET'])
-def get():
-    result = seoul_service.get_review()
-    return jsonify({"ok": result})
-
-
-@app.route('/delete', methods=['POST', 'GET'])
-def review_delete():
-    if request.method == 'POST':
-        id = '%s' % escape(session['id'])
-        pwd = '%s' % escape(session['pwd'])
-        result = seoul_service.delete(id,pwd)
-        print(result)
-        return jsonify(result)
-    else:
-        return False
-
-
 if __name__ == "__main__":
     app.run(port=5002, debug=True)
