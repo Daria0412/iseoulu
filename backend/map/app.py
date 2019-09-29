@@ -7,6 +7,7 @@ from service import seoul_service
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -26,16 +27,16 @@ def review_create():
         return jsonify({"ok": False})
 
 
-@app.route('/gomap', methods=['GET', 'POST'])
-def get_location():
-    if request.method == 'GET':
-        gu = request.args.get('gu')
-        result = api.return_gu(gu)
-        render_template('map.html', result=result)
-
-
 @app.route('/gomap', methods=['GET'])
-def show_gu(place):
+def gomap():
+    gu = request.args.get('gu')
+    result = api.return_gu(gu)
+    render_template('map.html', result=result)
+
+
+@app.route('/show_gu', methods=['GET'])
+def show_gu():
+    place = request.args.get('place')
     return render_template('map.html', geocode=api.return_gu(place))
 
 
